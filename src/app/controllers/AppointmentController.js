@@ -16,7 +16,7 @@ class AppointmentController {
     const appointments = await Appointment.findAll({
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
-      attributes: ['id', 'date'],
+      attributes: ['id', 'date', 'past', 'cancelable'],
       limit: 20,
       offset: (page - 1) * 20,
       include: [
@@ -132,10 +132,14 @@ class AppointmentController {
       ],
     });
 
+    if (!appointment) {
+      return res.status(401).json({ error: 'Appointment not found' });
+    }
+
     if (appointment.user_id != req.userId) {
-      res
-        .status(401)
-        .json({ error: "You don't have permision to cancel this appointment" });
+      return res.status(401).json({
+        error: "You don't have permission to cancel this appointment",
+      });
     }
 
     const dateWithSub = subHours(appointment.date, 2);
@@ -152,7 +156,7 @@ class AppointmentController {
 
     await Queue.add(CancellationMail.key, { appointment });
 
-    res.json(appointment);
+    return res.json(appointment);
   }
 }
 
