@@ -23,14 +23,11 @@ class Database {
 
   mongo() {
     try {
-      this.mongoConnection = mongoose.connect(
-        'mongodb://localhost:27017/gobarber',
-        {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          useFindAndModify: true,
-        }
-      );
+      this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: true,
+      });
     } catch (err) {
       console.log('Mongo connection fail: ', err);
     }
