@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1"
+  }
+}
