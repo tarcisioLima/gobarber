@@ -60,6 +60,8 @@ export const Profile = styled.div`
   }
   img {
     height: 32px;
+    width: 32px;
+    object-fit: cover;
     border-radius: 50%;
   }
 `;
