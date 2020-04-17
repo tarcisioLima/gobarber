@@ -7,7 +7,7 @@ import {
   setMinutes,
   setSeconds,
   isBefore,
-  isEqual,
+  //isEqual,
   parseISO,
 } from 'date-fns';
 import { utcToZonedTime } from 'date-fns-tz';
@@ -45,7 +45,7 @@ export default function Dashboard() {
           time: `${hour}:00h`,
           past: isBefore(compareDate, new Date()),
           appointment: response.data.find(
-            (a) => String(parseISO(a.date)) == String(compareDate)
+            (a) => String(parseISO(a.date)) === String(compareDate)
             //(a) => isEqual(parseISO(a.date), compareDate)
           ),
         };
